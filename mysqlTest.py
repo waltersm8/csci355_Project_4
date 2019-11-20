@@ -28,3 +28,14 @@ for x in mycursor:
 
 print("===Showing Tables===")
 mycursor.execute("SHOW TABLES")
+
+
+
+def main():
+  while True:
+    print("""
+    =========================================
+    
+    =========================================
+    """)
+    command = input("Input Value")
