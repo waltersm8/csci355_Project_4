@@ -9,7 +9,8 @@ mydb = mysql.connector.connect(
 """
 #Actual Database    
 mydb = mysql.connector.connect(
-  host="deltona.birdnest.org",
+  #host="deltona.birdnest.org",
+  host="127.0.0.1",
   user="my.waltersm8",
   passwd="Swa3ugus",
   database="my_waltersm8_csci355Project4"
@@ -38,4 +39,5 @@ def main():
     
     =========================================
     """)
-    command = input("Input Value")
+
+    #command = input("Input Value")
