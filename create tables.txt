@@ -1,0 +1,49 @@
+drop table GENRE;
+drop table DEVELOPER;
+drop table GAME;
+drop table USER;
+drop table USER_GAMES;
+
+create table GENRE (
+	id int unsigned not null auto_increment,
+	genre varchar(50) not null unique,
+	primary key(id)
+	);
+
+create table DEVELOPER (
+	id int unsigned not null auto_increment,
+	name varchar(50) not null unique,
+	primary key(id)
+	);
+
+create table GAME (
+	id int unsigned not null auto_increment,
+	title varchar(400) not null unique,
+	developer int unsigned default NULL,
+	genre int unsigned default NULL,
+	ageLimit tinyint unsigned default NULL,
+	primary key(id),
+	foreign key (developer) references Developer(id),
+	foreign key (genre) references Genre(id)
+	);
+
+create table USER (
+	id int unsigned not null auto_increment,
+	userName varchar(30) not null unique,
+	fName varchar(150) not null,
+	lName varchar(150),
+	birthdate date,
+	primary key (id)
+	);
+
+create table USER_GAMES (
+	user int unsigned not null,
+	game int unsigned not null,
+	primary key (user, game),
+	foreign key(user) references USER(id),
+	foreign key(game) references GAME(id)
+	);
+
+	
+	
+	

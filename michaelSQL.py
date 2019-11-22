@@ -29,7 +29,20 @@ for x in mycursor:
 print("===Showing Tables===")
 mycursor.execute("SHOW TABLES")
 
+tables = mycursor.fetchall()
 
+for table in tables:
+    print(table)
+
+print("===Select * from genre===")
+
+mycursor.execute("select * from genre")
+
+row = mycursor.fetchone()
+
+while row is not None:
+    print(row)
+    row = mycursor.fetchone()
 
 def main():
   while True:
