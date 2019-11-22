@@ -9,10 +9,10 @@ mydb = mysql.connector.connect(
 """
 #Actual Database    
 mydb = mysql.connector.connect(
-  host="deltona.birdnest.org",
-  user="my.waltersm8",
-  passwd="Swa3ugus",
-  database="my_waltersm8_csci355Project4"
+  host="127.0.0.1",
+  user="root",
+  passwd="",
+  database="362project4"
 )
 
 print(mydb)
