@@ -10,6 +10,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
         # self.wfile.write(b'Hello, world!')
         if self.path == '/':
+            self.wfile.write(b'Im a loser website who wont use my html files')
             self.path == '/index.html'
 
     def do_POST(self):
