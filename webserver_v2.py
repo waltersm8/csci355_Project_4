@@ -12,6 +12,8 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         if self.path == '/':
             self.wfile.write(b'Im a loser website who wont use my html files')
             self.path == '/index.html'
+        if self.path == '/michael':
+            self.wfile.write(b'Michael\'s page')
 
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])
