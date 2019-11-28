@@ -23,14 +23,25 @@ con.connect(function(err) { //Runs show tables on database
 
 const server = http.createServer((req, res) => { //Deals with everything in server connection
 
+    
+        console.log('Home Page');
 
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');//Sets headers needed for html / good load
   
-    fs.readFile('michael.html', null, function(error, data) { //Loads an html file
-        res.write(data);
+    if(req.url == '/michael')
+    {
+        fs.readFile('michael.html', null, function(error, data) { //Loads an html file
+            res.write(data);
+            res.end();
+        });
+    }
+    else
+    {
+        res.write('No Page Here For ');
+        res.write('<a href="michael">Michael</a>');
         res.end();
-    });
+    }
 
 });
 
