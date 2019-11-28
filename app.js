@@ -21,6 +21,7 @@ con.connect(function(err) { //Runs show tables on database
     });
 });
 
+
 const server = http.createServer((req, res) => { //Deals with everything in server connection
 
     res.statusCode = 200;

@@ -3,7 +3,6 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <script src="JSMichael/test.js"></script>
         <title>Super Cool Games</title>
     </head>
 
@@ -16,20 +15,31 @@
             <li><a href="michael.html">Michael</a></li>
         </ul>
 
-
             <p>
                 Genre:
-                <input id="genreField" type="text" name="genre" value="temp">
+                <input id="genreField" type="text" name="genre" form="myForm">
             </p>
 
-            <input id="genreButton" type="button" value="Submit Genre" onclick="console.log(document.getElementById('#genreField'))">
-            
+           <input type="button" value="Submit Genre" onclick="genreSubmit()">
+
             <P>
                 Developer: 
-                <input type="text" name="developer">
+                <input id="devField" type="text" name="developer">
             </P>
 
-            <input id="developerButton" type="button" value="Submit Developer" onclick="test()">
+            <input type="button" value="Submit Developer" onclick="devSubmit()">
+
+            <script>
+                function genreSubmit() {
+                    var temp = document.getElementById('genreField');
+                    console.log(temp.value);
+                }
+                
+                function devSubmit() {
+                    var temp = document.getElementById('devField');
+                    console.log(temp.value);
+                }
+            </script>
 
     </body>
 </html>
