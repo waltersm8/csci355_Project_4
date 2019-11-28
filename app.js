@@ -26,7 +26,7 @@ const server = http.createServer((req, res) => { //Deals with everything in serv
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');//Sets headers needed for html / good load
   
-    if(req.url == '/michael')
+    if(req.url == '/michael') //Keep doing this for new pages
     {
         fs.readFile('michael.html', null, function(error, data) { //Loads an html file
             res.write(data);
