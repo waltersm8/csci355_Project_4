@@ -1,0 +1,22 @@
+{
+  "name": "project4",
+  "version": "1.0.0",
+  "description": "https://blog.anvileight.com/posts/simple-python-http-server/\r https://blog.anvileight.com/posts/simple-python-http-server/#advanced-python-http-server\r ^^^Looking Promising^^^\r https://www.afternerd.com/blog/python-http-server/\r https://docs.python.org/3/library/http.server.html",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/waltersm8/csci355_Project_4.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/waltersm8/csci355_Project_4/issues"
+  },
+  "homepage": "https://github.com/waltersm8/csci355_Project_4#readme",
+  "dependencies": {
+    "mysql": "^2.17.1"
+  }
+}
