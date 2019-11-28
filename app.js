@@ -21,7 +21,6 @@ con.connect(function(err) { //Runs show tables on database
     });
 });
 
-
 const server = http.createServer((req, res) => { //Deals with everything in server connection
 
     res.statusCode = 200;
@@ -47,7 +46,3 @@ const server = http.createServer((req, res) => { //Deals with everything in serv
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
-
-function test() {
-    console.log('test');
-}
