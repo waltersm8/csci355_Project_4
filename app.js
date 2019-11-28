@@ -6,13 +6,20 @@ const port = 8080;
 
 var mysql = require('mysql');
 
-var con = mysql.createConnection({
+var con = mysql.createConnection({ //COnnects to sql database
     host: "127.0.0.1",
     user: "root",
     password: "admin",
     database: "362project4"
 });
 
+con.connect(function(err) { //Runs show tables on database
+    if (err) throw err;
+    con.query("show tables", function (err, results, fields) {
+        if (err) throw err;
+        console.log(results);
+    });
+});
 
 const server = http.createServer((req, res) => { //Deals with everything in server connection
 
@@ -24,8 +31,6 @@ const server = http.createServer((req, res) => { //Deals with everything in serv
         res.write(data);
         res.end();
     });
-
-
 
 });
 
