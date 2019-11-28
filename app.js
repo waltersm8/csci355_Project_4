@@ -23,9 +23,6 @@ con.connect(function(err) { //Runs show tables on database
 
 const server = http.createServer((req, res) => { //Deals with everything in server connection
 
-    
-        console.log('Home Page');
-
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');//Sets headers needed for html / good load
   
@@ -35,6 +32,7 @@ const server = http.createServer((req, res) => { //Deals with everything in serv
             res.write(data);
             res.end();
         });
+        //console.log('Page Loaded');
     }
     else
     {
