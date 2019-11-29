@@ -21,12 +21,16 @@ con.connect(function(err) { //Runs show tables on database
     });
 });
 
+function temp(){
+    console.log('temp');
+}
+
 const server = http.createServer((req, res) => { //Deals with everything in server connection
 
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');//Sets headers needed for html / good load
   
-    if(req.url == '/michael') //Keep doing this for new pages
+    if(req.url == '/michael' && req.method == 'GET') //Keep doing this for new pages
     {
         fs.readFile('michael.html', null, function(error, data) { //Loads an html file
             res.write(data);
@@ -34,7 +38,11 @@ const server = http.createServer((req, res) => { //Deals with everything in serv
         });
         //console.log('Page Loaded');
     }
-    else
+    else if(req.url == '/michael' && req.method === 'POST')
+    {
+        
+    }
+    else //Not michaels page
     {
         res.write('No Page Here For ');
         res.write('<a href="michael">Michael</a>');
