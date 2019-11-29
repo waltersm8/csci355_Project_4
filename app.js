@@ -5,6 +5,8 @@ const port = 8080;
 
 var mysql = require('mysql');
 
+app.use(express.static('public'));
+
 var con = mysql.createConnection({ //COnnects to sql database
     host: "127.0.0.1",
     user: "root",
@@ -20,14 +22,22 @@ con.connect(function(err) { //Runs show tables on database
     });
 });
 
-app.use(express.static('public'));
-
 app.set('views', path.join(__dirname, "views"));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
-app.get('/michael', (req, res) => {
+//ITS A ROUTER PARTY----------------
+
+app.get('/michael', (req, res) => { 
   res.render('michael');
 });
+
+app.post('/michael', (req, res) => {
+    res.write('Post request');
+    console.log('Post request');
+    res.end();
+});
+
+//ITS A ROUTER PARTY----------------
 
 app.listen(port);
