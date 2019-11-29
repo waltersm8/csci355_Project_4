@@ -37,13 +37,29 @@ app.get('/michael', (req, res) => {
 });
 
 app.post('/addGenre', (req, res) => {
-    console.log(req.body.genre);
+    var newGenre = req.body.genre;
+
+    console.log(newGenre);
+
+        con.query("insert into genre (genre) values ('"+newGenre+"')", function (err, results, fields) {
+            if (err) throw err;
+            console.log(results);
+        });     
+
     res.redirect('/michael');
     res.end();
 });
 
 app.post('/addDev', (req, res) => {
-    console.log(req.body.dev);
+    var newDev = req.body.dev;
+    
+    console.log(newDev);
+
+    con.query("insert into developer (name) values ('"+newDev+"')", function (err, results, fields) {
+        if (err) throw err;
+        console.log(results);
+    });  
+
     res.redirect('/michael');
     res.end();
 });
