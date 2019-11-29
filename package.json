@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/waltersm8/csci355_Project_4#readme",
   "dependencies": {
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
     "mysql": "^2.17.1"
   }
 }

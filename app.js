@@ -1,7 +1,6 @@
-const http = require('http');
-const fs = require('fs');
-
-const hostname = '127.0.0.1';
+const express = require('express');
+const path = require('path');
+const app = express();
 const port = 8080;
 
 var mysql = require('mysql');
@@ -21,36 +20,14 @@ con.connect(function(err) { //Runs show tables on database
     });
 });
 
-function temp(){
-    console.log('temp');
-}
+app.use(express.static('public'));
 
-const server = http.createServer((req, res) => { //Deals with everything in server connection
+app.set('views', path.join(__dirname, "views"));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/html');//Sets headers needed for html / good load
-  
-    if(req.url == '/michael' && req.method == 'GET') //Keep doing this for new pages
-    {
-        fs.readFile('michael.html', null, function(error, data) { //Loads an html file
-            res.write(data);
-            res.end();
-        });
-        //console.log('Page Loaded');
-    }
-    else if(req.url == '/michael' && req.method === 'POST')
-    {
-        
-    }
-    else //Not michaels page
-    {
-        res.write('No Page Here For ');
-        res.write('<a href="michael">Michael</a>');
-        res.end();
-    }
-
+app.get('/michael', (req, res) => {
+  res.render('michael');
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+app.listen(port);
