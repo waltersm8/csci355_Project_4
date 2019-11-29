@@ -37,7 +37,14 @@ app.get('/michael', (req, res) => {
 });
 
 app.post('/addGenre', (req, res) => {
-    console.log('Post request');
+    console.log(req.body.genre);
+    res.redirect('/michael');
+    res.end();
+});
+
+app.post('/addDev', (req, res) => {
+    console.log(req.body.dev);
+    res.redirect('/michael');
     res.end();
 });
 
