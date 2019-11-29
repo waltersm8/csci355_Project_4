@@ -30,12 +30,13 @@ app.set('view engine', 'html');
 
 app.get('/michael', (req, res) => { 
   res.render('michael');
-});
+  
+    con.query("select * from genre", function (err, results, fields) { //Gets genre types in array form
+        if (err) throw err
+        for (var i = 0; i < results.length; i++)//Prints out all genres
+            console.log(results[i].genre);
+    })
 
-app.post('/michael', (req, res) => {
-    res.write('Post request');
-    console.log('Post request');
-    res.end();
 });
 
 //ITS A ROUTER PARTY----------------

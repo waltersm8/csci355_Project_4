@@ -3,6 +3,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <script src="/JSMichael/test.js"></script>
         <title>Super Cool Games</title>
     </head>
 
@@ -14,13 +15,13 @@
             <li><a href="ethan.html">Ethan</a></li>
             <li><a href="michael.html">Michael</a></li>
         </ul>
-        <form method="POST">
+        <form action="/" method="POST">
             <p>
                 Genre:
                 <input id="genreField" type="text" name="genre" form="myForm">
             </p>
 
-            <input type="button"  value="Submit Genre">
+            <input type="button"  value="Submit Genre" onclick="test()">
             <!--
             <input type="button"  value="Submit Genre" onclick="genreSubmit()">
             -->
@@ -44,6 +45,5 @@
                     console.log(temp.value);
                 }
             </script>
-            <script src="/JSMichael/test.js"></script>
     </body>
 </html>
