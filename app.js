@@ -1,11 +1,13 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+var bodyParser = require('body-parser');
 const port = 8080;
 
 var mysql = require('mysql');
 
 app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 var con = mysql.createConnection({ //COnnects to sql database
     host: "127.0.0.1",
@@ -30,15 +32,20 @@ app.set('view engine', 'html');
 
 app.get('/michael', (req, res) => { 
   res.render('michael');
-  
-    con.query("select * from genre", function (err, results, fields) { //Gets genre types in array form
-        if (err) throw err
-        for (var i = 0; i < results.length; i++)//Prints out all genres
-            console.log(results[i].genre);
-    })
+});
 
+app.post('/addGenre', (req, res) => {
+    console.log(req.body);
 });
 
 //ITS A ROUTER PARTY----------------
 
 app.listen(port);
+
+/* Select all from a table code
+con.query("select * from genre", function (err, results, fields) { //Gets genre types in array form
+        if (err) throw err
+        for (var i = 0; i < results.length; i++)//Prints out all genres
+            console.log(results[i].genre);
+    })
+*/

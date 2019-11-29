@@ -15,35 +15,22 @@
             <li><a href="ethan.html">Ethan</a></li>
             <li><a href="michael.html">Michael</a></li>
         </ul>
-        <form action="/" method="POST">
+
+        <form action="/addGenre" method="POST">
             <p>
                 Genre:
-                <input id="genreField" type="text" name="genre" form="myForm">
+                <input type="text" name="genre" form="myForm">
             </p>
 
-            <input type="button"  value="Submit Genre" onclick="test()">
-            <!--
-            <input type="button"  value="Submit Genre" onclick="genreSubmit()">
-            -->
+            <input type="button"  value="Submit Genre">
         </form>
-
+        <form action="/addDev" method="POST">
             <P>
                 Developer: 
                 <input id="devField" type="text" name="developer">
             </P>
 
-            <input type="button" value="Submit Developer" onclick="devSubmit()">
-
-            <script>
-                function genreSubmit() {
-                    var temp = document.getElementById('genreField');
-                    console.log(temp.value);
-                }
-                
-                function devSubmit() {
-                    var temp = document.getElementById('devField');
-                    console.log(temp.value);
-                }
-            </script>
+            <input type="button" value="Submit Developer">
+        </form>
     </body>
 </html>
