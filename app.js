@@ -191,7 +191,7 @@ app.post('/addDev', (req, res, next) => {
     //console.log(newDev);
     if(newDev != "")
     {
-        con.query("insert into DEVELOPER (name) values ('"+newDev+"')", function (err, results, fields) {
+        con.query("insert into DEVELOPER (name) values ?", newDev, function (err, results, fields) {
             if (err) {
                 next(err)
             } else {
