@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 
 const express = require('express');
 const path = require('path');
@@ -56,7 +56,7 @@ app.get('/michael', (req, res) => {
 //------------------
 
 app.get('/showDevs', (req, res) => {
-    con.query("select * from developer", function (err, results, fields) {
+    con.query("select * from DEVELOPER", function (err, results, fields) {
         if (err) throw err;
         //console.log(results); 
 
@@ -65,7 +65,7 @@ app.get('/showDevs', (req, res) => {
 });
 
 app.get('/showGenres', (req, res) => {
-    con.query("select * from genre", function (err, results, fields) {
+    con.query("select * from GENRE", function (err, results, fields) {
         if (err) throw err;
         //console.log(results); 
 
@@ -80,7 +80,7 @@ app.get('/showGenres', (req, res) => {
 //------------------
 
 app.post('/dev/delete', (req, res) => {
-    con.query("delete from developer where id= ?", req.body.id, function (err, results, fields) {
+    con.query("delete from DEVELOPER where id= ?", req.body.id, function (err, results, fields) {
         if (err) {
             next(err)
         } else {
@@ -91,7 +91,7 @@ app.post('/dev/delete', (req, res) => {
 });
 
 app.post('/genre/delete', (req, res) => {
-    con.query("delete from genre where id= ?", req.body.id, function (err, results, fields) {
+    con.query("delete from GENRE where id= ?", req.body.id, function (err, results, fields) {
         if (err) {
             next(err)
         } else {
@@ -109,7 +109,7 @@ app.post('/genre/delete', (req, res) => {
 
 app.get('/genre/update/:id', (req, res) => {
 
-    con.query("select genre from genre where id= ?", req.params.id, function (err, results, fields) {
+    con.query("select genre from GENRE where id= ?", req.params.id, function (err, results, fields) {
         if (err) {
             next(err)
         } else {
@@ -120,7 +120,7 @@ app.get('/genre/update/:id', (req, res) => {
 });
 
 app.post('/genre/update', (req, res) => {
-    con.query("update genre set ? where id= ?", [req.body, req.body.id], function (err, results, fields) {
+    con.query("update GENRE set ? where id= ?", [req.body, req.body.id], function (err, results, fields) {
         if (err) {
             next(err)
         } else {
@@ -136,7 +136,7 @@ app.post('/genre/update', (req, res) => {
 
 app.get('/dev/update/:id', (req, res) => {
 
-    con.query("select name from developer where id= ?", req.params.id, function (err, results, fields) {
+    con.query("select name from DEVELOPER where id= ?", req.params.id, function (err, results, fields) {
         if (err) {
             next(err)
         } else {
@@ -147,7 +147,7 @@ app.get('/dev/update/:id', (req, res) => {
 });
 
 app.post('/dev/update', (req, res) => {
-    con.query("update developer set ? where id= ?", [req.body, req.body.id], function (err, results, fields) {
+    con.query("update DEVELOPER set ? where id= ?", [req.body, req.body.id], function (err, results, fields) {
         if (err) {
             next(err)
         } else {
@@ -169,7 +169,8 @@ app.post('/addGenre', (req, res, next) => {
     var newGenre = req.body.genre;
 
     //console.log(newGenre);
-
+    if(newGenre != "")
+    {
         con.query("insert into GENRE (genre) values ('"+newGenre+"')", function (err, results, fields) {
             if (err) {
                 next(err)
@@ -178,21 +179,29 @@ app.post('/addGenre', (req, res, next) => {
                 res.redirect('/michael');
             }
         });
+    }
+    else
+        res.redirect('/michael');
+    
 });
 
 app.post('/addDev', (req, res, next) => {
     var newDev = req.body.dev;
     
     //console.log(newDev);
-
-    con.query("insert into DEVELOPER (name) values ('"+newDev+"')", function (err, results, fields) {
-        if (err) {
-            next(err)
-        } else {
-            console.log(results);
-            res.redirect('/michael');
-        }
-    });
+    if(newDev != "")
+    {
+        con.query("insert into DEVELOPER (name) values ('"+newDev+"')", function (err, results, fields) {
+            if (err) {
+                next(err)
+            } else {
+                console.log(results);
+                res.redirect('/michael');
+            }
+        });
+    }
+    else
+        res.redirect('/michael');
 });
 
 //---------------------------------------------------
