@@ -31,8 +31,19 @@ app.set('view engine', 'html');
 
 //ITS A ROUTER PARTY----------------
 
-app.get('/michael', (req, res) => { 
-  res.render('michael');
+app.get('/michael', (req, res) => {
+    
+    var genres; 
+    con.query("select * from genre", function (err, results, fields) {
+        if (err) throw err;
+        console.log(results);  
+        genres = results;
+    });
+
+    res.render('michael');
+    console.log(genres);
+    
+
   res.end();
 });
 
