@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Super Cool Games</title>
+    </head>
+
+    <body>
+        <h2>Update Genre</h2>
+        <p>Original: <%= genre[0].genre%></p>
+        <form action="/genre/update" method="POST">
+            <p>
+                Genre:
+                <input type="text" name="genre" value="<%= genre[0].genre%>">
+            </p>
+
+            <input type="hidden" name="id" value="<%= id%>">
+
+            <input type="submit"  value="Submit Change">
+        </form>
+    </body>
+</html>

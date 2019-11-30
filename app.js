@@ -43,17 +43,28 @@ app.set('view engine', 'html');
 //ITS A ROUTER PARTY----------------
 //These will handle get and post requests, should be only edits in this file
 
+app.get('/michael', (req, res) => {
+    res.render('michael');
+    res.end();
+});
+
+//------------------
+//------------------
+//Show for michael
+//------------------
+//------------------
+
 app.get('/showDevs', (req, res) => {
     con.query("select * from developer", function (err, results, fields) {
         if (err) throw err;
-        console.log(results); 
+        //console.log(results); 
 
         res.write('<!DOCTYPE html><html><head></head><body>');
         res.write('<p><a href="/michael">Return</a><p>');
         res.write('<ul>');
         for(var i = 0; i < results.length; i++)
         {
-            res.write('<li>'+results[i].name+'</li>');
+            res.write('<li><a href="dev/update/'+results[i].id+'">'+results[i].name+'</a></li>');
         }
         res.write('</ul>');
         res.write('</body></html>')
@@ -64,14 +75,14 @@ app.get('/showDevs', (req, res) => {
 app.get('/showGenres', (req, res) => {
     con.query("select * from genre", function (err, results, fields) {
         if (err) throw err;
-        console.log(results); 
+        //console.log(results); 
 
         res.write('<!DOCTYPE html><html><head></head><body>');
         res.write('<p><a href="/michael">Return</a><p>');
         res.write('<ul>');
         for(var i = 0; i < results.length; i++)
         {
-            res.write('<li>'+results[i].genre+'</li>');
+            res.write('<li><a href="genre/update/'+results[i].id+'">'+results[i].genre+'</a></li>');
         }
         res.write('</ul>');
         res.write('</body></html>')
@@ -79,10 +90,69 @@ app.get('/showGenres', (req, res) => {
     });
 });
 
-app.get('/michael', (req, res) => {
-    res.render('michael');
-    res.end();
+//------------------
+//------------------
+//Update for michael
+//------------------
+//------------------
+
+app.get('/genre/update/:id', (req, res) => {
+
+    con.query("select genre from genre where id= ?", req.params.id, function (err, results, fields) {
+        if (err) {
+            next(err)
+        } else {
+        //console.log(results);
+        }
+        res.render('genre_update', {genre: results, id: req.params.id});
+    });
 });
+
+app.post('/genre/update', (req, res) => {
+    con.query("update genre set ? where id= ?", [req.body, req.body.id], function (err, results, fields) {
+        if (err) {
+            next(err)
+        } else {
+        //console.log(req.body);
+        //console.log(req.body.id);
+        }
+    });
+
+    res.redirect('/showGenres');
+});
+ 
+//Visual break
+
+app.get('/dev/update/:id', (req, res) => {
+
+    con.query("select name from developer where id= ?", req.params.id, function (err, results, fields) {
+        if (err) {
+            next(err)
+        } else {
+        //console.log(results);
+        }
+        res.render('dev_update', {name: results, id: req.params.id});
+    });
+});
+
+app.post('/dev/update', (req, res) => {
+    con.query("update developer set ? where id= ?", [req.body, req.body.id], function (err, results, fields) {
+        if (err) {
+            next(err)
+        } else {
+        //console.log(req.body);
+        //console.log(req.body.id);
+        }
+    });
+
+    res.redirect('/showDevs');
+});
+
+//------------------
+//------------------
+//Add for michael
+//------------------
+//------------------
 
 app.post('/addGenre', (req, res, next) => {
     var newGenre = req.body.genre;
@@ -93,7 +163,7 @@ app.post('/addGenre', (req, res, next) => {
             if (err) {
                 next(err)
             } else {
-                console.log(results);
+                //console.log(results);
             }
         });     
 
@@ -117,6 +187,12 @@ app.post('/addDev', (req, res, next) => {
     res.redirect('/michael');
     res.end();
 });
+
+//---------------------------------------------------
+//---------------------------------------------------
+//Ethans stuff bellow--------------------------------
+//---------------------------------------------------
+//---------------------------------------------------
 
 app.get('/games', (req, res) => {
     con.query('SELECT GAME.id, GAME.title, GAME.ageLimit, DEVELOPER.name, GENRE.genre FROM GAME, DEVELOPER, GENRE WHERE GAME.developer = DEVELOPER.id AND GAME.genre = GENRE.id', function (error, results, fields) {
