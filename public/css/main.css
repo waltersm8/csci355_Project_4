@@ -1,7 +1,14 @@
 input[type=submit] {
-    background: green;
+    padding: 5px;
 }
 
 .deleteBtn {
+    margin-top: 10px;
     background: red;
+    border: solid black 1px;
+}
+
+h3 {
+    padding: 2px;
+    margin: 2px;
 }
