@@ -23,8 +23,8 @@ create table GAME (
 	genre int unsigned default NULL,
 	ageLimit tinyint unsigned default NULL,
 	primary key(id),
-	foreign key (developer) references DEVELOPER(id),
-	foreign key (genre) references GENRE(id)
+	foreign key (developer) references DEVELOPER(id) on update cascade on delete set null,
+	foreign key (genre) references GENRE(id) on update cascade on delete set null
 	);
 
 create table USER (
@@ -40,8 +40,8 @@ create table USER_GAMES (
 	user int unsigned not null,
 	game int unsigned not null,
 	primary key (user, game),
-	foreign key(user) references USER(id),
-	foreign key(game) references GAME(id)
+	foreign key(user) references USER(id) on update cascade on delete cascade,
+	foreign key(game) references GAME(id) on update cascade on delete cascade
 	);
 
 	
