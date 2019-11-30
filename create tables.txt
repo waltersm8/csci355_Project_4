@@ -1,8 +1,8 @@
+drop table USER_GAMES;
+drop table USER;
+drop table GAME;
 drop table GENRE;
 drop table DEVELOPER;
-drop table GAME;
-drop table USER;
-drop table USER_GAMES;
 
 create table GENRE (
 	id int unsigned not null auto_increment,
