@@ -8,24 +8,25 @@
 </head>
 <body>
   <a href="/games">View Games</a>
-  <form action="/games/create" method="POST">
+  <form action="/games/update" method="POST">
+    <input type="hidden" name="id" value="<%= results[0].id %>">
     <label for="title">Game Title</label>
-    <input type="text" name="title" id="title" value="<%= gameTitle %>">
+    <input type="text" name="title" id="title" value="<%= results[0].title %>">
     <label for="developer">Developer</label>
     <select name="developer" id="developer">
       <% for(let i = 0; i < developers.length; i++) { %>
-        <option value="<%= developers[i].id %>"><%= developers[i].name %></option>
+        <option value="<%= developers[i].id %>" <%= developers[i].id === results[0].developer ? 'selected' : '' %>><%= developers[i].name %></option>
       <% } %>
     </select>
     <label for="genre">Genre</label>
     <select name="genre" id="genre">
       <% for(let i = 0; i < genres.length; i++) { %>
-        <option value="<%= genres[i].id %>"><%= genres[i].genre %></option>
+        <option value="<%= genres[i].id %>"  <%= genres[i].id === results[0].genre ? 'selected' : '' %>><%= genres[i].genre %></option>
       <% } %>
     </select>
     <label for="ageLimit">Age Limit</label>
-    <input type="number" name="ageLimit" id="ageLimit" min="0">
-    <input type="submit" value="Add Game">
+    <input type="number" name="ageLimit" id="ageLimit" min="0" value="<%= results[0].ageLimit %>">
+    <input type="submit" value="Update Game">
   </form>
 </body>
 </html>

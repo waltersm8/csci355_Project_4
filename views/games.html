@@ -9,20 +9,24 @@
 <body>
   <a href="/games/new">Create Game</a>
   <table>
-    <th>
-      <td>Game Title</td>
-      <td>Developer</td>
-      <td>Genre</td>
-      <td></td>
-    </th>
+    <tr>
+      <th>Game Title</th>
+      <th>Developer</th>
+      <th>Genre</th>
+      <th>Age Limit</th>
+    </tr>
     <% for(let i = 0; i < results.length; i++) { %>
     <tr>
       <td><%= results[i].title %></td>
       <td><%= results[i].name %></td>
       <td><%= results[i].genre %></td>
+      <td><%= results[i].ageLimit %></td>
       <td>
-        <button>Update</button>
-        <button>Delete</button>
+        <a href="/games/update/<%=results[i].id%>">Update</a>
+        <form action="/games/delete" method="post">
+          <input type="hidden" name="id" value="<%=results[i].id%>">
+          <input type="submit" value="Delete">
+        </form>
       </td>
     </tr>
     <% } %>

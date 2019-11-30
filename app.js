@@ -6,6 +6,9 @@ const app = express();
 var bodyParser = require('body-parser');
 const port = 8080;
 
+// Disables view cache, data might have updated since then
+app.disable('view cache')
+
 var mysql = require('mysql');
 
 app.use(express.static('public'));
@@ -125,7 +128,7 @@ app.post('/addDev', (req, res) => {
 });
 
 app.get('/games', (req, res) => {
-    con.query('SELECT GAME.id, GAME.title, DEVELOPER.name, GENRE.genre FROM GAME, DEVELOPER, GENRE WHERE GAME.developer = DEVELOPER.id AND GAME.genre = GENRE.id', function (error, results, fields) {
+    con.query('SELECT GAME.id, GAME.title, GAME.ageLimit, DEVELOPER.name, GENRE.genre FROM GAME, DEVELOPER, GENRE WHERE GAME.developer = DEVELOPER.id AND GAME.genre = GENRE.id', function (error, results, fields) {
         if (error) throw error
         console.log(results)
         res.render('games', {results})
@@ -161,9 +164,47 @@ app.post('/games/create', (req, res, next) => {
     // })
 })
 
+app.get('/games/update/:id', (req, res) => {
+    con.query('SELECT * FROM GENRE', function (error, genres, fields) {
+        if (error) throw error
+        con.query('SELECT * FROM DEVELOPER', function (error, developers, fields) {
+            if (error) throw error
+            con.query('SELECT * FROM GAME WHERE id = ?', req.params.id, function (error, results, fields) {
+                if (error) throw error
+                res.render('games_update', {genres, developers, results})
+            })
+            
+        })
+    })
+})
+
+app.post('/games/update/', (req, res, next) => {
+    con.query('UPDATE GAME SET ? WHERE id = ?', [req.body, req.body.id], function (error, results, fields) {
+        if (error) {
+            next(error)
+        } else {
+            console.log(results)
+            console.log(fields)
+            res.redirect('/games')
+        }
+    })
+})
+
+app.post('/games/delete', (req, res, next) => {
+    con.query('DELETE FROM GAME WHERE id = ?', req.body.id, function (error, results, fields) {
+        if (error) {
+            next(error)
+        } else {
+            console.log(results)
+            console.log(fields)
+            res.redirect('/games')
+        }
+    })
+})
+
 //ITS A ROUTER PARTY----------------
 
-// Handle errors
+// Handle 404 and other errors
 app.use((req, res, next) => {
     let err = new Error('404')
     err.status = 404
