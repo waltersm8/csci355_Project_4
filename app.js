@@ -44,70 +44,55 @@ app.set('view engine', 'html');
 //These will handle get and post requests, should be only edits in this file
 
 app.get('/showDevs', (req, res) => {
-
     con.query("select * from developer", function (err, results, fields) {
         if (err) throw err;
         console.log(results); 
 
         res.write('<!DOCTYPE html><html><head></head><body>');
-
         res.write('<p><a href="/michael">Return</a><p>');
-
         res.write('<ul>');
-
         for(var i = 0; i < results.length; i++)
         {
             res.write('<li>'+results[i].name+'</li>');
         }
-
         res.write('</ul>');
-
         res.write('</body></html>')
-
         res.end();
     });
 });
 
 app.get('/showGenres', (req, res) => {
-
     con.query("select * from genre", function (err, results, fields) {
         if (err) throw err;
         console.log(results); 
 
         res.write('<!DOCTYPE html><html><head></head><body>');
-
         res.write('<p><a href="/michael">Return</a><p>');
-
         res.write('<ul>');
-
         for(var i = 0; i < results.length; i++)
         {
             res.write('<li>'+results[i].genre+'</li>');
         }
-
         res.write('</ul>');
-
         res.write('</body></html>')
-
         res.end();
     });
 });
 
 app.get('/michael', (req, res) => {
-    res.render('michael'); 
-
-  res.end();
+    res.render('michael');
+    res.end();
 });
 
 app.post('/addGenre', (req, res) => {
     var newGenre = req.body.genre;
 
-    console.log(newGenre);
+    //console.log(newGenre);
 
-        con.query("insert into genre (genre) values ('"+newGenre+"')", function (err, results, fields) {
-            if (err) throw err;
-            console.log(results);
-        });     
+    con.query("insert into genre (genre) values ('"+newGenre+"')", function (err, results, fields) {
+        if (err) throw err;
+        console.log(results);
+    });     
 
     res.redirect('/michael');
     res.end();
@@ -116,7 +101,7 @@ app.post('/addGenre', (req, res) => {
 app.post('/addDev', (req, res) => {
     var newDev = req.body.dev;
     
-    console.log(newDev);
+    //console.log(newDev);
 
     con.query("insert into developer (name) values ('"+newDev+"')", function (err, results, fields) {
         if (err) throw err;
