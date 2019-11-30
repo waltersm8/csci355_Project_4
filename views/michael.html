@@ -3,7 +3,6 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <script src="/JSMichael/test.js"></script>
         <title>Super Cool Games</title>
     </head>
 
@@ -34,8 +33,19 @@
         </form>
 
         <h2>Genres</h2>
+        <ul>
+            <li><%= genres.RowDataPacket%></li>
+            <%for(var genre in genres) {%>
+            <li><%= genre%></li>
+            <% } %>
+
+        </ul>
 
         <h2>Developers</h2>
+
+
+
+        
 
     </body>
 </html>

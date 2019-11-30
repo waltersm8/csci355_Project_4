@@ -42,15 +42,13 @@ app.set('view engine', 'html');
 
 app.get('/michael', (req, res) => {
     
-    var genres; 
-    con.query("select * from genre", function (err, results, fields) {
+    
+    var genres = con.query("select * from genre", function (err, results, fields) {
         if (err) throw err;
-        console.log(results);  
-        genres = results;
+        console.log(results); 
     });
 
-    res.render('michael');
-    console.log(genres);
+    res.render('michael', {genres: genres});
     
 
   res.end();
