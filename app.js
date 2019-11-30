@@ -43,6 +43,7 @@ app.set('view engine', 'html');
 //ITS A ROUTER PARTY----------------
 //These will handle get and post requests, should be only edits in this file
 
+//Bleep bloop this is michaels home file for genre and developer
 app.get('/michael', (req, res) => {
     res.render('michael');
     res.end();
@@ -59,16 +60,7 @@ app.get('/showDevs', (req, res) => {
         if (err) throw err;
         //console.log(results); 
 
-        res.write('<!DOCTYPE html><html><head></head><body>');
-        res.write('<p><a href="/michael">Return</a><p>');
-        res.write('<ul>');
-        for(var i = 0; i < results.length; i++)
-        {
-            res.write('<li><a href="dev/update/'+results[i].id+'">'+results[i].name+'</a></li>');
-        }
-        res.write('</ul>');
-        res.write('</body></html>')
-        res.end();
+        res.render('show_devs', {names: results});
     });
 });
 
@@ -77,16 +69,7 @@ app.get('/showGenres', (req, res) => {
         if (err) throw err;
         //console.log(results); 
 
-        res.write('<!DOCTYPE html><html><head></head><body>');
-        res.write('<p><a href="/michael">Return</a><p>');
-        res.write('<ul>');
-        for(var i = 0; i < results.length; i++)
-        {
-            res.write('<li><a href="genre/update/'+results[i].id+'">'+results[i].genre+'</a></li>');
-        }
-        res.write('</ul>');
-        res.write('</body></html>')
-        res.end();
+        res.render('show_genres', {genres: results});
     });
 });
 

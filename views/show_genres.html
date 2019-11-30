@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Super Cool Games</title>
+    </head>
+
+    <body>
+        <p><a href="/michael">Return</a><p>
+
+       <ul>
+        <%for(var i = 0; i < genres.length; i++){%>
+            <li><a href="genre/update/<%= genres[i].id%>"><%= genres[i].genre%></a></li>
+        <%}%>
+       </ul>
+    </body>
+</html>
