@@ -92,6 +92,34 @@ app.get('/showGenres', (req, res) => {
 
 //------------------
 //------------------
+//Delete for michael
+//------------------
+//------------------
+
+app.post('/dev/delete', (req, res) => {
+    con.query("delete from developer where id= ?", req.body.id, function (err, results, fields) {
+        if (err) {
+            next(err)
+        } else {
+        //console.log(results);
+        }
+        res.redirect('/showDevs');
+    });
+});
+
+app.post('/genre/delete', (req, res) => {
+    con.query("delete from genre where id= ?", req.body.id, function (err, results, fields) {
+        if (err) {
+            next(err)
+        } else {
+        //console.log(results);
+        }
+        res.redirect('/showGenres');
+    });
+});
+
+//------------------
+//------------------
 //Update for michael
 //------------------
 //------------------
