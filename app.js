@@ -23,7 +23,7 @@ con.connect(function(err) { //Runs show tables on database
     if (err) throw err;
     con.query("show tables", function (err, results, fields) {
         if (err) throw err;
-        console.log(results);
+        //console.log(results);
     });
 });
 
@@ -40,16 +40,58 @@ app.set('view engine', 'html');
 //ITS A ROUTER PARTY----------------
 //These will handle get and post requests, should be only edits in this file
 
-app.get('/michael', (req, res) => {
-    
-    
-    var genres = con.query("select * from genre", function (err, results, fields) {
+app.get('/showDevs', (req, res) => {
+
+    con.query("select * from developer", function (err, results, fields) {
         if (err) throw err;
         console.log(results); 
-    });
 
-    res.render('michael', {genres: genres});
-    
+        res.write('<!DOCTYPE html><html><head></head><body>');
+
+        res.write('<p><a href="/michael">Return</a><p>');
+
+        res.write('<ul>');
+
+        for(var i = 0; i < results.length; i++)
+        {
+            res.write('<li>'+results[i].name+'</li>');
+        }
+
+        res.write('</ul>');
+
+        res.write('</body></html>')
+
+        res.end();
+    });
+});
+
+app.get('/showGenres', (req, res) => {
+
+    con.query("select * from genre", function (err, results, fields) {
+        if (err) throw err;
+        console.log(results); 
+
+        res.write('<!DOCTYPE html><html><head></head><body>');
+
+        res.write('<p><a href="/michael">Return</a><p>');
+
+        res.write('<ul>');
+
+        for(var i = 0; i < results.length; i++)
+        {
+            res.write('<li>'+results[i].genre+'</li>');
+        }
+
+        res.write('</ul>');
+
+        res.write('</body></html>')
+
+        res.end();
+    });
+});
+
+app.get('/michael', (req, res) => {
+    res.render('michael'); 
 
   res.end();
 });
