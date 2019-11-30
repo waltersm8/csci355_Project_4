@@ -320,7 +320,7 @@ con.query("select * from genre", function (err, results, fields) { //Gets genre 
            |   |  [nodemon] to restart at any time, enter 'rs' |    |
            |   |  [nodemon] watching dir(s): *.*               |    |
            |   |  [nodemon] watching extensions: js,mjs,json   |    |
-           |   |  [nodemon] starting `node app.js              |    |
+           |   |  [nodemon] starting `node app.js`             |    |
            |   |  _                                            |    |
            |   |                                               |    |
            |   |                                               |    |
