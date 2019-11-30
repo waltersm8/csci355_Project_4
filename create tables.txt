@@ -23,8 +23,8 @@ create table GAME (
 	genre int unsigned default NULL,
 	ageLimit tinyint unsigned default NULL,
 	primary key(id),
-	foreign key (developer) references Developer(id),
-	foreign key (genre) references Genre(id)
+	foreign key (developer) references DEVELOPER(id),
+	foreign key (genre) references GENRE(id)
 	);
 
 create table USER (
