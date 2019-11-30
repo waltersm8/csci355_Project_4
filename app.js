@@ -124,7 +124,57 @@ app.post('/addDev', (req, res) => {
     res.end();
 });
 
+app.get('/games', (req, res) => {
+    con.query('SELECT GAME.id, GAME.title, DEVELOPER.name, GENRE.genre FROM GAME, DEVELOPER, GENRE WHERE GAME.developer = DEVELOPER.id AND GAME.genre = GENRE.id', function (error, results, fields) {
+        if (error) throw error
+        console.log(results)
+        res.render('games', {results})
+    })
+})
+
+app.get('/games/new', (req, res) => {
+    con.query('SELECT * FROM GENRE', function (error, genres, fields) {
+        if (error) throw error
+        con.query('SELECT * FROM DEVELOPER', function (error, developers, fields) {
+            if (error) throw error
+            res.render('games_new', {genres, developers})
+        })
+    })
+})
+
+app.post('/games/create', (req, res, next) => {
+    con.query('INSERT INTO GAME SET ?', req.body, function (error, results, fields) {
+        if (error) {
+            next(error)
+        } else {
+            console.log(results)
+            console.log(fields)
+            res.redirect('/games/new')
+        }
+    })
+    // con.query('SELECT * FROM GENRE', function (error, genres, fields) {
+    //     if (error) throw error
+    //     con.query('SELECT * FROM DEVELOPER', function (error, developers, fields) {
+    //         if (error) throw error
+    //         res.render('games_new', {genres, developers})
+    //     })
+    // })
+})
+
 //ITS A ROUTER PARTY----------------
+
+// Handle errors
+app.use((req, res, next) => {
+    let err = new Error('404')
+    err.status = 404
+    next(err)
+})
+
+app.use((err, req, res, next) => {
+    res.status(err.status || 500)
+    res.render('error', {err})
+})
+
 
 app.listen(port); //Starts server
 

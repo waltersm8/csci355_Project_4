@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Games | New</title>
+</head>
+<body>
+  <a href="/games">View Games</a>
+  <form action="/games/create" method="POST">
+    <label for="title">Game Title</label>
+    <input type="text" name="title" id="title">
+    <label for="developer">Developer</label>
+    <select name="developer" id="developer">
+      <% for(let i = 0; i < developers.length; i++) { %>
+        <option value="<%= developers[i].id %>"><%= developers[i].name %></option>
+      <% } %>
+    </select>
+    <label for="genre">Genre</label>
+    <select name="genre" id="genre">
+      <% for(let i = 0; i < genres.length; i++) { %>
+        <option value="<%= genres[i].id %>"><%= genres[i].genre %></option>
+      <% } %>
+    </select>
+    <label for="ageLimit">Age Limit</label>
+    <input type="number" name="ageLimit" id="ageLimit" min="0">
+    <input type="submit" value="Add Game">
+  </form>
+</body>
+</html>
