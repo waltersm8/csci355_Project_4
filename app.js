@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const express = require('express');
 const path = require('path');
 const app = express();
@@ -11,10 +13,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 var con = mysql.createConnection({ //COnnects to sql database
-    host: "127.0.0.1",
-    user: "root",
-    password: "admin",
-    database: "362project4"
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE
 });
 
 con.connect(function(err) { //Runs show tables on database
