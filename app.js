@@ -84,28 +84,34 @@ app.get('/michael', (req, res) => {
     res.end();
 });
 
-app.post('/addGenre', (req, res) => {
+app.post('/addGenre', (req, res, next) => {
     var newGenre = req.body.genre;
 
     //console.log(newGenre);
 
-    con.query("insert into genre (genre) values ('"+newGenre+"')", function (err, results, fields) {
-        if (err) throw err;
-        console.log(results);
-    });     
+        con.query("insert into genre (genre) values ('"+newGenre+"')", function (err, results, fields) {
+            if (err) {
+                next(err)
+            } else {
+                console.log(results);
+            }
+        });     
 
     res.redirect('/michael');
     res.end();
 });
 
-app.post('/addDev', (req, res) => {
+app.post('/addDev', (req, res, next) => {
     var newDev = req.body.dev;
     
     //console.log(newDev);
 
     con.query("insert into developer (name) values ('"+newDev+"')", function (err, results, fields) {
-        if (err) throw err;
-        console.log(results);
+        if (err) {
+            next(err)
+        } else {
+            console.log(results);
+        }
     });  
 
     res.redirect('/michael');
@@ -137,7 +143,7 @@ app.post('/games/create', (req, res, next) => {
         } else {
             console.log(results)
             console.log(fields)
-            res.redirect('/games/new')
+            res.redirect('/games')
         }
     })
     // con.query('SELECT * FROM GENRE', function (error, genres, fields) {

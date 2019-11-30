@@ -22,7 +22,9 @@
       <td><%= results[i].genre %></td>
       <td><%= results[i].ageLimit %></td>
       <td>
-        <a href="/games/update/<%=results[i].id%>">Update</a>
+        <form action="/games/update/<%=results[i].id%>" method="get">
+          <input type="submit" value="Update">
+        </form>
         <form action="/games/delete" method="post">
           <input type="hidden" name="id" value="<%=results[i].id%>">
           <input type="submit" value="Delete">
