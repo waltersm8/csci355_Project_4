@@ -28,8 +28,15 @@ con.connect(function(err) { //Runs show tables on database
 app.set('views', path.join(__dirname, "views"));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
+//----------------------------------------------------------------------
+//----------------------------------------------------------------------
+//EVERYTHING ABOVE IS SETTING UP FOR THINGS AND SHOULD NOT BE CHANGED
+//THE ONLY THING THAT SHOULD EVER CHANG IS THE DATABASE CONNECTION
+//----------------------------------------------------------------------
+//----------------------------------------------------------------------
 
 //ITS A ROUTER PARTY----------------
+//These will handle get and post requests, should be only edits in this file
 
 app.get('/michael', (req, res) => {
     
@@ -77,7 +84,7 @@ app.post('/addDev', (req, res) => {
 
 //ITS A ROUTER PARTY----------------
 
-app.listen(port);
+app.listen(port); //Starts server
 
 /* Select all from a table code
 con.query("select * from genre", function (err, results, fields) { //Gets genre types in array form
