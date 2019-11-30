@@ -170,16 +170,14 @@ app.post('/addGenre', (req, res, next) => {
 
     //console.log(newGenre);
 
-        con.query("insert into genre (genre) values ('"+newGenre+"')", function (err, results, fields) {
+        con.query("insert into GENRE (genre) values ('"+newGenre+"')", function (err, results, fields) {
             if (err) {
                 next(err)
             } else {
-                //console.log(results);
+                console.log(results);
+                res.redirect('/michael');
             }
-        });     
-
-    res.redirect('/michael');
-    res.end();
+        });
 });
 
 app.post('/addDev', (req, res, next) => {
@@ -187,16 +185,14 @@ app.post('/addDev', (req, res, next) => {
     
     //console.log(newDev);
 
-    con.query("insert into developer (name) values ('"+newDev+"')", function (err, results, fields) {
+    con.query("insert into DEVELOPER (name) values ('"+newDev+"')", function (err, results, fields) {
         if (err) {
             next(err)
         } else {
             console.log(results);
+            res.redirect('/michael');
         }
-    });  
-
-    res.redirect('/michael');
-    res.end();
+    });
 });
 
 //---------------------------------------------------
