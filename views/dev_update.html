@@ -3,11 +3,13 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Super Cool Games</title>
+        <link rel="stylesheet" href="/css/main.css">
+        <title>Developer Update</title>
     </head>
 
     <body>
-        <h2>Update Genre</h2>
+        <h2>Update Developer</h2>
+        <p><a href="/michael">Return</a><p>
         <p>Original: <%= name[0].name%></p>
         <form action="/dev/update" method="POST">
             <p>
@@ -23,7 +25,7 @@
         <form action="/dev/delete" method="POST">
             <input type="hidden" name="id" value="<%= id%>">
 
-            <input type="submit" value="Delete Developer">
+            <input class="deleteBtn" type="submit" value="Delete Developer">
         </form>
         
     </body>

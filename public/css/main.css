@@ -1,0 +1,7 @@
+input[type=submit] {
+    background: green;
+}
+
+.deleteBtn {
+    background: red;
+}
