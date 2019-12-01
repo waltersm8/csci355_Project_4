@@ -1,34 +1,34 @@
 
-# import mysql.connector
+import mysql.connector
 
-# """
-# mydb = mysql.connector.connect(
-#   host="deltona.birdnest.org",
-#   user="my.ferneym2",
-#   passwd="max1well"
-# )
-# """
-# #Actual Database    
-# mydb = mysql.connector.connect(
-#   host="deltona.birdnest.org",
-#   user="my.waltersm8",
-#   passwd="Swa3ugus",
-#   database="my_waltersm8_csci355Project4"
-# )
+"""
+mydb = mysql.connector.connect(
+  host="deltona.birdnest.org",
+  user="my.ferneym2",
+  passwd="max1well"
+)
+"""
+#Actual Database    
+mydb = mysql.connector.connect(
+  host="deltona.birdnest.org",
+  user="my.waltersm8",
+  passwd="Swa3ugus",
+  database="my_waltersm8_csci355Project4"
+)
 
-# print(mydb)
+print(mydb)
 
-# mycursor = mydb.cursor()
-# print(mycursor)
+mycursor = mydb.cursor()
+print(mycursor)
 
-# print("===Showing Databases===")
-# mycursor.execute("SHOW DATABASES")
+print("===Showing Databases===")
+mycursor.execute("SHOW DATABASES")
 
-# for x in mycursor:
-#     print(x)
+for x in mycursor:
+    print(x)
 
-# print("===Showing Tables===")
-# mycursor.execute("SHOW TABLES")
+print("===Showing Tables===")
+mycursor.execute("SHOW TABLES")
 
 
 
@@ -84,9 +84,31 @@ def main():
     else:
       print(command)
       input()
-      if command=='select':
-        print("please choose which table to select")
+      if command=='create':
+        print("Which table would you like to insert into?")
+      elif command=='read':
+        # Show tables
+        print("===Showing Tables===")
+        mycursor.execute("SHOW TABLES")
+
+        myresult = mycursor.fetchall()
+        for x in myresult:
+          print(x)
+
+        #select table
+        tableSelection = input("please input table name: ")
         
+        #show table
+        mycursor.execute("SELECT * from "+tableSelection+";")
+        myresult = mycursor.fetchall()
+        for x in myresult:
+          print(x)
+        
+
+        
+
+
+
 
 
 main()
