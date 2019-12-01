@@ -84,6 +84,11 @@ app.post('/dev/delete', (req, res) => {
         if (err) {
             next(err)
         } else {
+            notifier.notify({
+                'title': 'Success!',
+                'subtitle': 'Deletion Completed', 
+                'message': 'Item has been deleted!'
+            });
         //console.log(results);
         }
         res.redirect('/showDevs');
@@ -95,6 +100,11 @@ app.post('/genre/delete', (req, res) => {
         if (err) {
             next(err)
         } else {
+            notifier.notify({
+                'title': 'Success!',
+                'subtitle': 'Deletion Completed', 
+                'message': 'Item has been deleted!'
+            });
         //console.log(results);
         }
         res.redirect('/showGenres');
@@ -122,8 +132,18 @@ app.get('/genre/update/:id', (req, res) => {
 app.post('/genre/update', (req, res) => {
     con.query("update GENRE set ? where id= ?", [req.body, req.body.id], function (err, results, fields) {
         if (err) {
+            notifier.notify({
+                'title': 'Insertion Error',
+                'subtitle': 'Insertion Failed', 
+                'message': 'Please check that the item you are changing to does not already exist or contain invalid chracters.'
+            });
             next(err)
         } else {
+            notifier.notify({
+                'title': 'Success!',
+                'subtitle': 'Change Completed', 
+                'message': req.body.genre + ' has been changed!'
+            });
         //console.log(req.body);
         //console.log(req.body.id);
         }
@@ -149,8 +169,19 @@ app.get('/dev/update/:id', (req, res) => {
 app.post('/dev/update', (req, res) => {
     con.query("update DEVELOPER set ? where id= ?", [req.body, req.body.id], function (err, results, fields) {
         if (err) {
+            notifier.notify({
+                'title': 'Insertion Error',
+                'subtitle': 'Insertion Failed', 
+                'message': 'Please check that the item you are changing to does not already exist or contain invalid chracters.'
+            });
+            res.redirect('/michael');
             next(err)
         } else {
+            notifier.notify({
+                'title': 'Success!',
+                'subtitle': 'Change Completed', 
+                'message': req.body.genre + ' has been changed!'
+            });
         //console.log(req.body);
         //console.log(req.body.id);
         }
@@ -192,7 +223,7 @@ app.post('/addGenre', (req, res, next) => {
                     'subtitle': 'Insertion Completed', 
                     'message': req.body.genre + ' has been inserted!'
                 });
-                console.log(results);
+                //console.log(results);
                 res.redirect('/michael');
             }
         });
