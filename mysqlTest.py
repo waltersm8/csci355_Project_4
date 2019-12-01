@@ -114,10 +114,32 @@ def main():
         for x in myresult:
           print(x)
         
-
+      ###---UPDATE---###
       if command == 'update':
-        selection
-
+        print("(userName, fName, lName)")
+        columnName = input("input Column Name of value to be changed: ")
+        oldVal = input("old value: ")
+        newVal = input("new value: ")
+        sql = "UPDATE USER SET "+columnName+" = '"+newVal+"' WHERE "+columnName+" = '"+oldVal+"'"
+        mycursor.execute(sql)
+        print(mycursor)
+        mydb.commit()
+      
+      ###---DELETE---###
+      if command == 'delete':
+        print("(userName, fName, lName)")
+        columnName = input("input column name to check value to be deleted: ")
+        val = input("input value of row to be deleted: ")
+        confirm = input("ARE YOU SURE? (y/n)")
+        if confirm.lower() == 'y':
+          sql = "DELETE FROM USER WHERE "+columnName+" = '"+val+"'"
+          mycursor.execute(sql)
+          mydb.commit()
+          print(mycursor.rowcount, "record(s) deleted")
+        else:
+          print("Nothing was Deleted")
+        
+        
 
 
 
