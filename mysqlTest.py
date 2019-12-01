@@ -1,20 +1,23 @@
 
 import mysql.connector
+import time
 
-"""
+
 mydb = mysql.connector.connect(
   host="deltona.birdnest.org",
   user="my.ferneym2",
-  passwd="max1well"
+  passwd="max1well",
+  database="my_ferneym2_355_p4_test"
 )
-"""
-#Actual Database    
-mydb = mysql.connector.connect(
-  host="deltona.birdnest.org",
-  user="my.waltersm8",
-  passwd="Swa3ugus",
-  database="my_waltersm8_csci355Project4"
-)
+
+
+# #Actual Database    
+# mydb = mysql.connector.connect(
+#   host="deltona.birdnest.org",
+#   user="my.waltersm8",
+#   passwd="Swa3ugus",
+#   database="my_waltersm8_csci355Project4"
+# )
 
 print(mydb)
 
@@ -30,18 +33,22 @@ for x in mycursor:
 print("===Showing Tables===")
 mycursor.execute("SHOW TABLES")
 
+myresult = mycursor.fetchall()
+for x in myresult:
+  print(x)
+
 
 
 def main():
   while True:
-    print("""\n\n\n\n\n
+    print("""\n\n\n
     =========================================
     What would you like to do? 
     (press the number by which one you'd like to do)
-    1) Create a value on the table
-    2) Read the table or tables
-    3) Update a value in the database
-    4) Delete a value in the database
+    1) Create a value on the USER table
+    2) Read the USER table
+    3) Update a value in the USER table
+    4) Delete a value in the USER table
     
     Press ctrl+c to exit or press 5
     =========================================
@@ -52,16 +59,12 @@ def main():
       command=None
       selection = int(input("Input Value: "))
       if selection==1:
-        print("create")
         command='create'
       elif selection==2:
-        print("read")
         command='read'
       elif selection==3:
-        print("update")
         command='update'
       elif selection==4:
-        print("delete")
         command='delete'
       elif selection==5:
         print("Goodbye. Type main() to start again")
@@ -83,65 +86,37 @@ def main():
       print()
     else:
       print(command)
-      input()
       ###---CREATE---###
       if command=='create':
-        # Show tables
-        print("===Showing Tables===")
-        mycursor.execute("SHOW TABLES")
-
-        myresult = mycursor.fetchall()
-        for x in myresult:
-          print(x)
-
-        print("Which table would you like to insert into?")
-        tableSelection = input("Table Name: ")
-        if tableSelection == 'GENRE':
-          val1 = input("genre: ")
-          sql = "INSERT INTO "+tableSelection+" (genre) VALUES ("+val1+")"
-        elif tableSelection == 'DEVELOPER':
-          val1 = input("name: ")
-          sql = "INSERT INTO "+tableSelection+" (name) VALUES ("+val1+")"
-        elif tableSelection == 'GAME':
-          val1 = input("title: ")
-          val2 = input("developer id: ")
-          val3 = input("genre id: ")
-          val4 = input("ageLimit: ")
-          if val4 == '':
-            sql = "INSERT INTO "+tableSelection+" (title, developer, genre) VALUES ("+val1+", "+val2+", "+val3+")"
-          else:
-            sql = "INSERT INTO "+tableSelection+" (title, developer, genre, ageLimit) VALUES ("+val1+", "+val2+", "+val3+", "+val4+")"
-        
+        val1 = input("userName: ")
+        val2 = input("fName: ")
+        val3 = input("lName: ")
+        #val4 = input("birthdate: ")
+        # if val3 == '':
+        #   sql = "INSERT INTO USER (userName, fName, birthdate) VALUES (\""+val1+"\", \""+val2+"\", "+val4+")"
+        # elif val4 == '' and val3 != '':
+        #   sql = "INSERT INTO USER (userName, fName, lName) VALUES (\""+val1+"\", \""+val2+"\", \""+val3+"\")"
+        if val3 =='':# and val4 == '':
+          sql = "INSERT INTO USER (userName, fName) VALUES (\""+val1+"\", \""+val2+"\")"
+        else:
+          sql = "INSERT INTO USER (userName, fName, lName) VALUES (\""+val1+"\", \""+val2+"\", \""+val3+"\")"
+        # else:
+        #   sql = "INSERT INTO USER (userName, fName, lName, birthdate) VALUES (\""+val1+"\", \""+val2+"\", \""+val3+"\", "+val4+")"
+        print(sql)
         mycursor.execute(sql)
-
-        myresult = mycursor.fetchall()
-        for x in myresult:
-          print(x)
-
-          
+        mydb.commit()
 
 
       ###---READ---###
-      elif command=='read':  
-        # Show tables
-        print("===Showing Tables===")
-        mycursor.execute("SHOW TABLES")
-
-        myresult = mycursor.fetchall()
-        for x in myresult:
-          print(x)
-
-        #select table
-        tableSelection = input("please input table name: ")
-        
-        #show table
-        mycursor.execute("SELECT * from "+tableSelection+";")
-        myresult = mycursor.fetchall()
+      if command == 'read':
+        mycursor.execute("SELECT * from USER")
+        myresult = mycursor
         for x in myresult:
           print(x)
         
 
-        
+      if command == 'update':
+        selection
 
 
 
