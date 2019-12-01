@@ -87,7 +87,8 @@ app.post('/dev/delete', (req, res) => {
             notifier.notify({
                 'title': 'Success!',
                 'subtitle': 'Deletion Completed', 
-                'message': 'Item has been deleted!'
+                'message': 'Item has been deleted!',
+                'icon': 'public/images/check_img.png'
             });
         //console.log(results);
         }
@@ -103,7 +104,8 @@ app.post('/genre/delete', (req, res) => {
             notifier.notify({
                 'title': 'Success!',
                 'subtitle': 'Deletion Completed', 
-                'message': 'Item has been deleted!'
+                'message': 'Item has been deleted!',
+                'icon': 'public/images/check_img.png'
             });
         //console.log(results);
         }
@@ -117,7 +119,7 @@ app.post('/genre/delete', (req, res) => {
 //------------------
 //------------------
 
-app.get('/genre/update/:id', (req, res) => {
+app.get('/genre/update/:id', (req, res, next) => {
 
     con.query("select genre from GENRE where id= ?", req.params.id, function (err, results, fields) {
         if (err) {
@@ -129,20 +131,22 @@ app.get('/genre/update/:id', (req, res) => {
     });
 });
 
-app.post('/genre/update', (req, res) => {
+app.post('/genre/update', (req, res, next) => {
     con.query("update GENRE set ? where id= ?", [req.body, req.body.id], function (err, results, fields) {
         if (err) {
             notifier.notify({
                 'title': 'Insertion Error',
                 'subtitle': 'Insertion Failed', 
-                'message': 'Please check that the item you are changing to does not already exist or contain invalid chracters.'
+                'message': 'Please check that the item you are changing to does not already exist or contain invalid chracters.',
+                'icon': 'public/images/x_img.png'
             });
             next(err)
         } else {
             notifier.notify({
                 'title': 'Success!',
                 'subtitle': 'Change Completed', 
-                'message': req.body.genre + ' has been changed!'
+                'message': req.body.genre + ' has been changed!',
+                'icon': 'public/images/check_img.png'
             });
         //console.log(req.body);
         //console.log(req.body.id);
@@ -154,7 +158,7 @@ app.post('/genre/update', (req, res) => {
  
 //Visual break
 
-app.get('/dev/update/:id', (req, res) => {
+app.get('/dev/update/:id', (req, res, next) => {
 
     con.query("select name from DEVELOPER where id= ?", req.params.id, function (err, results, fields) {
         if (err) {
@@ -166,21 +170,22 @@ app.get('/dev/update/:id', (req, res) => {
     });
 });
 
-app.post('/dev/update', (req, res) => {
+app.post('/dev/update', (req, res, next) => {
     con.query("update DEVELOPER set ? where id= ?", [req.body, req.body.id], function (err, results, fields) {
         if (err) {
             notifier.notify({
                 'title': 'Insertion Error',
                 'subtitle': 'Insertion Failed', 
-                'message': 'Please check that the item you are changing to does not already exist or contain invalid chracters.'
+                'message': 'Please check that the item you are changing to does not already exist or contain invalid chracters.',
+                'icon': 'public/images/x_img.png'
             });
-            res.redirect('/michael');
             next(err)
         } else {
             notifier.notify({
                 'title': 'Success!',
                 'subtitle': 'Change Completed', 
-                'message': req.body.genre + ' has been changed!'
+                'message': req.body.genre + ' has been changed!',
+                'icon': 'public/images/check_img.png'
             });
         //console.log(req.body);
         //console.log(req.body.id);
@@ -213,7 +218,8 @@ app.post('/addGenre', (req, res, next) => {
                 notifier.notify({
                     'title': 'Insertion Error',
                     'subtitle': 'Insertion Failed', 
-                    'message': 'Please check that the item you are inserting does not already exist or contain invalid chracters.'
+                    'message': 'Please check that the item you are inserting does not already exist or contain invalid chracters.',
+                    'icon': 'public/images/x_img.png'
                 });
                 res.redirect('/michael');
                 next(err);
@@ -221,7 +227,8 @@ app.post('/addGenre', (req, res, next) => {
                 notifier.notify({
                     'title': 'Success!',
                     'subtitle': 'Insertion Completed', 
-                    'message': req.body.genre + ' has been inserted!'
+                    'message': req.body.genre + ' has been inserted!',
+                    'icon': 'public/images/check_img.png'
                 });
                 //console.log(results);
                 res.redirect('/michael');
@@ -242,7 +249,8 @@ app.post('/addDev', (req, res, next) => {
                 notifier.notify({
                     'title': 'Insertion Error',
                     'subtitle': 'Insertion Failed', 
-                    'message': 'Please check that the item you are inserting does not already exist or contain invalid characters.'
+                    'message': 'Please check that the item you are inserting does not already exist or contain invalid characters.',
+                    'icon': 'public/images/x_img.png'
                 });
                 res.redirect('/michael');
                 next(err)
@@ -250,7 +258,8 @@ app.post('/addDev', (req, res, next) => {
                 notifier.notify({
                     'title': 'Success!',
                     'subtitle': 'Insertion Completed', 
-                    'message': req.body.dev + ' has been inserted!'
+                    'message': req.body.dev + ' has been inserted!',
+                    'icon': 'public/images/check_img.png'
                 });
                 console.log(results);
                 res.redirect('/michael');
