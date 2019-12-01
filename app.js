@@ -166,14 +166,12 @@ app.post('/dev/update', (req, res) => {
 //------------------
 
 app.post('/addGenre', (req, res, next) => {
-    var newGenre = req.body.genre;
-
-    //console.log(newGenre);
-    if(newGenre != "")
+    if(req.body.genre != "")
     {
-        con.query("insert into GENRE (genre) values ('"+newGenre+"')", function (err, results, fields) {
+        con.query("insert into GENRE (genre) values (?)", req.body.genre, function (err, results, fields) {
             if (err) {
-                next(err)
+                res.redirect('/michael');
+                next(err);
             } else {
                 console.log(results);
                 res.redirect('/michael');
@@ -185,14 +183,13 @@ app.post('/addGenre', (req, res, next) => {
     
 });
 
-app.post('/addDev', (req, res, next) => {
-    var newDev = req.body.dev;
-    
-    //console.log(newDev);
-    if(newDev != "")
+app.post('/addDev', (req, res, next) => { 
+    console.log(req.body.dev);
+    if(req.body.dev != "")
     {
-        con.query("insert into DEVELOPER (name) values ?", newDev, function (err, results, fields) {
+        con.query("insert into DEVELOPER (name) values (?)", req.body.dev, function (err, results, fields) {
             if (err) {
+                res.redirect('/michael');
                 next(err)
             } else {
                 console.log(results);
