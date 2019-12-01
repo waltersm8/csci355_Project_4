@@ -165,14 +165,33 @@ app.post('/dev/update', (req, res) => {
 //------------------
 //------------------
 
+const notifier = require('node-notifier');
+/* Popup notifications!
+notifier.notify({
+    'title': 'title',
+    'subtitle': 'subtitle', 
+    'message': 'message'
+});
+*/
+
 app.post('/addGenre', (req, res, next) => {
     if(req.body.genre != "")
     {
         con.query("insert into GENRE (genre) values (?)", req.body.genre, function (err, results, fields) {
             if (err) {
+                notifier.notify({
+                    'title': 'Insertion Error',
+                    'subtitle': 'Insertion Failed', 
+                    'message': 'Please check that the item you are inserting does not already exist or contain invalid chracters.'
+                });
                 res.redirect('/michael');
                 next(err);
             } else {
+                notifier.notify({
+                    'title': 'Success!',
+                    'subtitle': 'Insertion Completed', 
+                    'message': req.body.genre + ' has been inserted!'
+                });
                 console.log(results);
                 res.redirect('/michael');
             }
@@ -189,9 +208,19 @@ app.post('/addDev', (req, res, next) => {
     {
         con.query("insert into DEVELOPER (name) values (?)", req.body.dev, function (err, results, fields) {
             if (err) {
+                notifier.notify({
+                    'title': 'Insertion Error',
+                    'subtitle': 'Insertion Failed', 
+                    'message': 'Please check that the item you are inserting does not already exist or contain invalid characters.'
+                });
                 res.redirect('/michael');
                 next(err)
             } else {
+                notifier.notify({
+                    'title': 'Success!',
+                    'subtitle': 'Insertion Completed', 
+                    'message': req.body.dev + ' has been inserted!'
+                });
                 console.log(results);
                 res.redirect('/michael');
             }
