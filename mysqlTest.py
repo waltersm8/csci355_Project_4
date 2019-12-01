@@ -84,9 +84,45 @@ def main():
     else:
       print(command)
       input()
+      ###---CREATE---###
       if command=='create':
+        # Show tables
+        print("===Showing Tables===")
+        mycursor.execute("SHOW TABLES")
+
+        myresult = mycursor.fetchall()
+        for x in myresult:
+          print(x)
+
         print("Which table would you like to insert into?")
-      elif command=='read':
+        tableSelection = input("Table Name: ")
+        if tableSelection == 'GENRE':
+          val1 = input("genre: ")
+          sql = "INSERT INTO "+tableSelection+" (genre) VALUES ("+val1+")"
+        elif tableSelection == 'DEVELOPER':
+          val1 = input("name: ")
+          sql = "INSERT INTO "+tableSelection+" (name) VALUES ("+val1+")"
+        elif tableSelection == 'GAME':
+          val1 = input("title: ")
+          val2 = input("developer id: ")
+          val3 = input("genre id: ")
+          val4 = input("ageLimit: ")
+          if val4 == '':
+            sql = "INSERT INTO "+tableSelection+" (title, developer, genre) VALUES ("+val1+", "+val2+", "+val3+")"
+          else:
+            sql = "INSERT INTO "+tableSelection+" (title, developer, genre, ageLimit) VALUES ("+val1+", "+val2+", "+val3+", "+val4+")"
+        
+        mycursor.execute(sql)
+
+        myresult = mycursor.fetchall()
+        for x in myresult:
+          print(x)
+
+          
+
+
+      ###---READ---###
+      elif command=='read':  
         # Show tables
         print("===Showing Tables===")
         mycursor.execute("SHOW TABLES")
