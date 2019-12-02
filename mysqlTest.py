@@ -60,7 +60,6 @@ def main():
       print("\n\n--------------ERROR--------------")
       print("Can only input a number. Please try again")
     except KeyboardInterrupt:
-      print("\n\n--------------ERROR--------------")
       print("Goodbye. Type main() to start again")
       return None
 
@@ -71,23 +70,47 @@ def main():
       print(command)
       ###---CREATE---###
       if command=='create':
-        val1 = input("userName: ")
-        val2 = input("fName: ")
-        val3 = input("lName: ")
-        #val4 = input("birthdate: ")
-        # if val3 == '':
-        #   sql = "INSERT INTO USER (userName, fName, birthdate) VALUES (\""+val1+"\", \""+val2+"\", "+val4+")"
-        # elif val4 == '' and val3 != '':
-        #   sql = "INSERT INTO USER (userName, fName, lName) VALUES (\""+val1+"\", \""+val2+"\", \""+val3+"\")"
-        if val3 =='':# and val4 == '':
-          sql = "INSERT INTO USER (userName, fName) VALUES (\""+val1+"\", \""+val2+"\")"
-        else:
-          sql = "INSERT INTO USER (userName, fName, lName) VALUES (\""+val1+"\", \""+val2+"\", \""+val3+"\")"
-        # else:
-        #   sql = "INSERT INTO USER (userName, fName, lName, birthdate) VALUES (\""+val1+"\", \""+val2+"\", \""+val3+"\", "+val4+")"
-        print(sql)
-        mycursor.execute(sql)
-        mydb.commit()
+        try:
+          isValid = True
+          val1 = input("userName: ")
+          val2 = input("fName: ")
+          val3 = input("lName: ")
+          #val4 = input("birthdate: ")
+          # if val3 == '':
+          #   sql = "INSERT INTO USER (userName, fName, birthdate) VALUES (\""+val1+"\", \""+val2+"\", "+val4+")"
+          # elif val4 == '' and val3 != '':
+          #   sql = "INSERT INTO USER (userName, fName, lName) VALUES (\""+val1+"\", \""+val2+"\", \""+val3+"\")"
+          # Not Null
+          if val1 == '' or val2 == '':
+            print("userName and fName cannot be blank")
+            isValid = False
+          # In range in range of attribute
+          elif val1.length > 30:
+            print("userName cannot be more than 30 characters")
+            isValid = False
+          # In range in range of attribute
+          elif val2.length > 150:
+            print("fName cannot be more than 150 characters")
+            isValid = False
+          # if lName is blank, do not insert a value 3
+          elif val3 =='':# and val4 == '':
+            sql = "INSERT INTO USER (userName, fName) VALUES (\""+val1+"\", \""+val2+"\")"
+          else:
+            sql = "INSERT INTO USER (userName, fName, lName) VALUES (\""+val1+"\", \""+val2+"\", \""+val3+"\")"
+          # else:
+          #   sql = "INSERT INTO USER (userName, fName, lName, birthdate) VALUES (\""+val1+"\", \""+val2+"\", \""+val3+"\", "+val4+")"
+          if isValid:
+            print(sql)
+            mycursor.execute(sql)
+            mydb.commit()
+          else:
+            print("Something happened, No Changes were made")
+        except KeyboardInterrupt:
+          print("\n\n--------------ERROR--------------")
+          print("KeyboardInterrupt. No Changes were made")
+        except ValueError:
+          print("\n\n--------------ERROR--------------")
+          print("Invalid Input (value error). No Changes were made")
 
 
       ###---READ---###
