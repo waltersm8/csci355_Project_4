@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/main.css">
+        <title>Add Genre & Dev</title>
+    </head>
+
+    <body>
+        <p>USERS LIST</p>
+
+        
+        
+            <form action="/addUserGame" method="POST">
+                <select name="user" id="user">
+                    <%for (var i = 0; i < users.length; i++) { %>
+                        <option value="<%= users[i].id%>"><%= users[i].userName%></option>
+                    <%}%>
+                </select>
+
+                <select name="game" id="game">
+                        <%for (var i = 0; i < games.length; i++) { %>
+                            <option value="<%= games[i].id%>"><%= games[i].title%></option>
+                        <%}%>
+                    </select>
+
+                    <input type="submit" value="Add Game To User">
+            </form>
+
+
+    </body>
+</html>

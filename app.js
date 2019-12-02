@@ -43,6 +43,37 @@ app.set('view engine', 'html');
 //ITS A ROUTER PARTY----------------
 //These will handle get and post requests, should be only edits in this file
 
+//--------------------------------
+//Juans Create Pages--------------
+app.get('/juan', (req, res) => {
+    con.query("select * from USER", function (err, users, fields) {
+        if (err) {
+            next(err);
+        }
+        con.query("select * from GAME", function (err, games, fields) {
+            if (err) 
+            {
+                next (err);
+            }
+            console.log(games);
+            res.render('user_game', {users: users, games: games});
+            res.end();
+        });
+    });
+});
+
+app.post('/addUserGame', (req, res) => {
+    con.query("insert into USER_GAMES set ?", req.body, function (err, results, fields) {
+        if (err) throw err;
+
+        res.redirect('/juan');
+    });
+});
+
+//Juans Create Pages--------------
+//--------------------------------
+
+
 //Bleep bloop this is michaels home file for genre and developer
 app.get('/michael', (req, res) => {
     res.render('michael');
