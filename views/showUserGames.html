@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/main.css">
+        <title>Add Genre & Dev</title>
+    </head>
+
+    <body>
+        <a href="/juan">Return</a>
+
+        <p>User Game List</p>
+
+        <%for (var i = 0; i < list.length; i++) {%>
+            
+            <p>
+                <%= list[i].userName%>
+                : 
+                <%= list[i].title%>
+                <a href="/deleteUserGame/<%= list[i].user%>/<%= list[i].game%>">DELETE</a>
+            </p>
+
+        <%}%>
+
+    </body>
+</html>

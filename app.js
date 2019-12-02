@@ -73,6 +73,39 @@ app.post('/addUserGame', (req, res) => {
 //Juans Create Pages--------------
 //--------------------------------
 
+//Juan Show Pages
+
+app.get('/showUserGames', (req, res) => {
+    con.query("select * from USER_GAMES join USER on USER.id = USER_GAMES.user join GAME on USER_GAMES.game = GAME.id", function (err, results, fields) {
+        if (err) throw err;
+
+        console.log(results);
+        res.render('showUserGames', {list: results});
+        res.end();
+    });
+});
+
+//Juan Show pages
+
+//Juan Delete and Update Page
+
+app.get('/deleteUserGame/:user/:game', (req, res) =>{
+    var user = req.params.user;
+    var game = req.params.game;
+
+    console.log(user + game);
+
+    con.query("delete from USER_GAMES where user= ? and game= ?", [user, game], function (err, results, fields) {
+        if (err) throw err;
+
+        console.log(results);
+        res.redirect('/showUserGames');
+        res.end();
+    });
+}); 
+
+//Juan Delete and update Page
+
 
 //Bleep bloop this is michaels home file for genre and developer
 app.get('/michael', (req, res) => {
