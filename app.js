@@ -89,6 +89,27 @@ app.get('/showUserGames', (req, res) => {
 
 //Juan Delete and Update Page
 
+app.get('/updateUserGame/:user/:game', (req, res) =>{
+    var user = req.params.user;
+    var game = req.params.game;
+
+    console.log(user + game);
+
+
+    con.query("select * from USER_GAMES join USER on USER.id = USER_GAMES.user join GAME on USER_GAMES.game = GAME.id where user= ? and game= ?", [user, game], function (err, currentField, fields) {
+        if (err) throw err;
+
+        console.log(currentField);
+    con.query("select * from USER_GAMES join USER on USER.id = USER_GAMES.user join GAME on USER_GAMES.game = GAME.id", [user, game], function (err, results, fields) {
+        if (err) throw err;
+
+        //console.log(results);
+        res.render('updateuserGame', {results: results, currUser: user, currGame: game, currentField: currentField});
+        res.end(); 
+        });
+    });
+}); 
+
 app.get('/deleteUserGame/:user/:game', (req, res) =>{
     var user = req.params.user;
     var game = req.params.game;
@@ -98,7 +119,7 @@ app.get('/deleteUserGame/:user/:game', (req, res) =>{
     con.query("delete from USER_GAMES where user= ? and game= ?", [user, game], function (err, results, fields) {
         if (err) throw err;
 
-        console.log(results);
+        //console.log(results);
         res.redirect('/showUserGames');
         res.end();
     });
