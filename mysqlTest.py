@@ -85,11 +85,11 @@ def main():
             print("userName and fName cannot be blank")
             isValid = False
           # In range in range of attribute
-          elif val1.length > 30:
+          elif len(val1) > 30:
             print("userName cannot be more than 30 characters")
             isValid = False
           # In range in range of attribute
-          elif val2.length > 150:
+          elif len(val2) > 150:
             print("fName cannot be more than 150 characters")
             isValid = False
           # if lName is blank, do not insert a value 3
@@ -122,28 +122,68 @@ def main():
         
       ###---UPDATE---###
       if command == 'update':
-        print("(userName, fName, lName)")
-        columnName = input("input Column Name of value to be changed: ")
-        oldVal = input("old value: ")
-        newVal = input("new value: ")
-        sql = "UPDATE USER SET "+columnName+" = '"+newVal+"' WHERE "+columnName+" = '"+oldVal+"'"
-        mycursor.execute(sql)
-        print(mycursor)
-        mydb.commit()
+        try:
+          isValid=True
+          print("(userName, fName, lName)")
+          columnName = input("input Column Name of value to be changed: ")
+          oldVal = input("old value: ")
+          newVal = input("new value: ")
+          # Invalid Input Errors (for length and such)
+          if columnName == 'userName':
+            if newVal == '' or len(newVal) > 30:
+              print("userName cannot be more than 30 characters. userName cannot be empty")
+              isValid=False
+          elif columnName == 'fName':
+            if newVal == '' or len(newVal) > 150:
+              print("fName cannot be more than 150 characters. fName cannot be empty")
+              isValid=False
+          elif columnName == 'lName':
+            if len(newVal) > 150:
+              print("lName cannot be more than 150 characters")
+              isValid=False
+          else:
+            print("Invalid ColumnName")
+            isValid=False
+          if isValid:
+            sql = "UPDATE USER SET "+columnName+" = '"+newVal+"' WHERE "+columnName+" = '"+oldVal+"'"
+            mycursor.execute(sql)
+            print(mycursor)
+            mydb.commit()
+          else:
+            print("Something happened, No Changes were made")
+        except KeyboardInterrupt:
+          print("\n\n--------------ERROR--------------")
+          print("KeyboardInterrupt. No Changes were made")
+        except ValueError:
+          print("\n\n--------------ERROR--------------")
+          print("Invalid Input (value error). No Changes were made")
       
       ###---DELETE---###
       if command == 'delete':
-        print("(userName, fName, lName)")
-        columnName = input("input column name to check value to be deleted: ")
-        val = input("input value of row to be deleted: ")
-        confirm = input("ARE YOU SURE? (y/n)")
-        if confirm.lower() == 'y':
-          sql = "DELETE FROM USER WHERE "+columnName+" = '"+val+"'"
-          mycursor.execute(sql)
-          mydb.commit()
-          print(mycursor.rowcount, "record(s) deleted")
-        else:
-          print("Nothing was Deleted")
+        try:
+          print("(userName, fName, lName)")
+          columnName = input("input column name to check value to be deleted: ")
+          val = input("input value of row to be deleted: ")
+          confirm = input("ARE YOU SURE? (y/n)")
+          if confirm.lower() == 'y':
+            if columnName in ['userName', 'fName', 'lName']:
+              sql = "DELETE FROM USER WHERE "+columnName+" = '"+val+"'"
+              mycursor.execute(sql)
+              mydb.commit()
+              print(mycursor.rowcount, "record(s) deleted")
+              if mycursor.rowcount == 0:
+                print("No rows were deleted")
+            else:
+              print("Not a valid column name")
+          else:
+            print("Nothing was Deleted")
+        except KeyboardInterrupt:
+          print("\n\n--------------ERROR--------------")
+          print("KeyboardInterrupt. No Changes were made")
+        except ValueError:
+          print("\n\n--------------ERROR--------------")
+          print("Invalid Input (value error). No Changes were made")
+          
         
         
 
