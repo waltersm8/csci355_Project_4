@@ -10,6 +10,8 @@ import time
 #   database="my_ferneym2_355_p4_test"
 # )
 
+##################How to prevent sql injection##########################
+#("SELECT admin FROM users WHERE username = %(username)s", {'username': username})
 
 #Actual Database    
 mydb = mysql.connector.connect(
@@ -94,14 +96,12 @@ def main():
             isValid = False
           # if lName is blank, do not insert a value 3
           elif val3 =='':# and val4 == '':
-            sql = "INSERT INTO USER (userName, fName) VALUES (\""+val1+"\", \""+val2+"\")"
+            mycursor.execute("INSERT INTO USER (userName, fName) VALUES (%(val1)s, %(val2)s)", {'val1':val1, 'val2':val2})
           else:
-            sql = "INSERT INTO USER (userName, fName, lName) VALUES (\""+val1+"\", \""+val2+"\", \""+val3+"\")"
+            mycursor.execute("INSERT INTO USER (userName, fName, lName) VALUES (%(val1)s, %(val2)s, %(val3)s)", {'val1':val1, 'val2':val2, 'val3':val3})
           # else:
           #   sql = "INSERT INTO USER (userName, fName, lName, birthdate) VALUES (\""+val1+"\", \""+val2+"\", \""+val3+"\", "+val4+")"
           if isValid:
-            print(sql)
-            mycursor.execute(sql)
             mydb.commit()
           else:
             print("Something happened, No Changes were made")
@@ -142,11 +142,11 @@ def main():
               print("lName cannot be more than 150 characters")
               isValid=False
           else:
+            #prevents sql injection via columnName
             print("Invalid ColumnName")
             isValid=False
           if isValid:
-            sql = "UPDATE USER SET "+columnName+" = '"+newVal+"' WHERE "+columnName+" = '"+oldVal+"'"
-            mycursor.execute(sql)
+            mycursor.execute("UPDATE USER SET "+columnName+" = %(newVal)s WHERE "+columnName+" = %(oldVal)s", {'newVal':newVal, 'oldVal':oldVal})
             print(mycursor)
             mydb.commit()
           else:
@@ -166,9 +166,9 @@ def main():
           val = input("input value of row to be deleted: ")
           confirm = input("ARE YOU SURE? (y/n)")
           if confirm.lower() == 'y':
+            #prevents sql injection via columnName
             if columnName in ['userName', 'fName', 'lName']:
-              sql = "DELETE FROM USER WHERE "+columnName+" = '"+val+"'"
-              mycursor.execute(sql)
+              mycursor.execute("DELETE FROM USER WHERE "+columnName+" = %(val)s", {'val':val})
               mydb.commit()
               print(mycursor.rowcount, "record(s) deleted")
               if mycursor.rowcount == 0:
