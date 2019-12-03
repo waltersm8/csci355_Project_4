@@ -10,20 +10,24 @@
     <body>
         <a href="/juan">Return</a>
 
-        <p>Switch User Game</p>
+        <h2>Switch User Game</h2>
 
-        <form action="/updateUserGame" method="POST">
+        <form action="/updateUserGame/<%= oldUser%>/<%= oldGame%>" method="POST">
         
+            <p>Current UserName: <%= currentField[0].userName%></p>
+            <p>Current Game: <%= currentField[0].title%></p>
+
+
             <select name="user" id="user">
-                <option value="<%= currUser%>">
-                    <%= currentField[0].userName%>
-                </option>
+                <%for (var i = 0; i < users.length; i++) { %>
+                    <option value="<%= users[i].id%>"><%= users[i].userName%></option>
+                <%}%>
             </select>
 
             <select name="game" id="game">
-                <option value="<%currGame%>">
-                    <%= currentField[0].title%>
-                </option>
+                <%for (var i = 0; i < games.length; i++) { %>
+                    <option value="<%= games[i].id%>"><%= games[i].title%></option>
+                <%}%>
             </select>
 
             <input type="submit" value="Update">

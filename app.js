@@ -89,6 +89,16 @@ app.get('/showUserGames', (req, res) => {
 
 //Juan Delete and Update Page
 
+app.post('/updateUserGame/:user/:game', (req, res) => {
+    con.query("update USER_GAMES set ? where user= ? and game= ?", [req.body, req.params.user, req.params.game], function (err, results, fields) {
+        if (err) throw err;
+
+        //console.log(results);
+        res.redirect('/showUserGames');
+        res.end();
+    });
+});
+
 app.get('/updateUserGame/:user/:game', (req, res) =>{
     var user = req.params.user;
     var game = req.params.game;
@@ -99,13 +109,17 @@ app.get('/updateUserGame/:user/:game', (req, res) =>{
     con.query("select * from USER_GAMES join USER on USER.id = USER_GAMES.user join GAME on USER_GAMES.game = GAME.id where user= ? and game= ?", [user, game], function (err, currentField, fields) {
         if (err) throw err;
 
-        console.log(currentField);
-    con.query("select * from USER_GAMES join USER on USER.id = USER_GAMES.user join GAME on USER_GAMES.game = GAME.id", [user, game], function (err, results, fields) {
-        if (err) throw err;
+        //console.log(currentField);
+        con.query("select * from GAME", [user, game], function (err, games, fields) {
+            if (err) throw err;
 
-        //console.log(results);
-        res.render('updateuserGame', {results: results, currUser: user, currGame: game, currentField: currentField});
-        res.end(); 
+            con.query("select * from USER", [user, game], function (err, users, fields) {
+                if (err) throw err;
+    
+                console.log(user + game);
+                res.render('updateuserGame', {games: games, currentField: currentField, users: users, oldUser: user, oldGame: game});
+                res.end(); 
+            });
         });
     });
 }); 
