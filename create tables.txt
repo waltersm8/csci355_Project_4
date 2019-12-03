@@ -18,7 +18,7 @@ create table DEVELOPER (
 
 create table GAME (
 	id int unsigned not null auto_increment,
-	title varchar(400) not null unique,
+	title varchar(100) not null unique,
 	developer int unsigned default NULL,
 	genre int unsigned default NULL,
 	ageLimit tinyint unsigned default NULL,
